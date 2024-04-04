@@ -1,0 +1,234 @@
+﻿@{
+    ViewData["Title"] = "E-Emlakçım";
+}
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ana Sayfa - E-Emlakçım</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .custom-container {
+            width: 100%;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .slogan {
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .search-bar {
+            margin-bottom: 20px;
+        }
+
+        .search-button {
+            margin-left: 10px;
+            background-color: #4CAF50;
+        }
+
+        .reklam {
+            margin-bottom: 20px;
+        }
+
+        .ilanlar {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+            .ilanlar .ilan {
+                background-color: #f9f9f9;
+                padding: 10px;
+                border-radius: 8px;
+                margin-bottom: 10px;
+            }
+
+                .ilanlar .ilan img {
+                    max-width: 100%;
+                    height: 200px;
+                    border-radius: 8px;
+                    margin-bottom: 10px;
+                }
+
+        .ilanlar-button {
+            position: absolute;
+            top: 0;
+            right: 0;
+            margin-top: 0px;
+        }
+
+        .yeni-ilanlar-container {
+            margin-top: 40px;
+        }
+
+        .ilan-container {
+            width: 100%;
+            height: 150px;
+            float: left;
+            margin-right: 20px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 8px;
+            padding: 20px;
+            color: #fff;
+            display: flex; /* Flex kullanarak içerik düzenleme */
+            flex-direction: column; /* Sütun düzeni */
+            justify-content: flex-end; /* İçeriği konteynırın altına hizalama */
+        }
+
+            .ilan-container h3 {
+                margin-bottom: 10px;
+                font-weight: bold; /* Kalın yazı stili */
+            }
+
+            .ilan-container p {
+                font-weight: bold; /* Kalın yazı stili */
+            }
+    </style>
+</head>
+<body>
+
+    <div class="custom-container">
+        <!-- Slogan -->
+        <div class="slogan">
+            Ev Sahibi Olmanın İlk Adımını Bizimle Atın
+        </div>
+
+        <!-- Arama Çubuğu -->
+        <div class="search-bar container">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Arama yapın...">
+                <div class="input-group-append">
+                    <button class="btn btn-primary search-button" type="button">Ara</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="custom-container">
+
+        <!-- Reklam Alanı -->
+        <div class="reklam">
+            <!-- İnternetten alınmış reklam resmi veya kodu buraya gelecek -->
+        </div>
+
+        <!-- Öne Çıkan İlanlar -->
+        <div class="ilanlar">
+            <h2>Öne Çıkan İlanlar</h2>
+
+            <!-- İlanlar -->
+            <div class="row">
+                <!-- İlan 1 -->
+                <div class="col-md-4">
+                    <div class="ilan">
+                        <img src="https://istanbultokikonutlari.com/wp-content/uploads/2016/11/toki-kayasehir-18-28-e1478452313177.jpg" alt="İlan Resmi">
+                        <h4>Manavgat sidede site içinde full eşyalı günlük kiralık daire</h4>
+                        <p>Antalya - Manavgat - Side Mahallesi</p>
+                        <p>3000 ₺</p>
+                    </div>
+                </div>
+
+                <!-- İlan 2 -->
+                <div class="col-md-4">
+                    <div class="ilan">
+                        <img src="https://www.nurolgyo.com/assets/b/oturma-odasi-dekorasyonu.jpg" alt="İlan Resmi">
+                        <h4>
+                            Şeyhsinan mahalllesinde 2+1 satılık daire
+                        </h4>
+                        <p>Tekirdağ - Çorlu - Şeyh Sinan Mahallesi</p>
+                        <p>1.450.000 ₺</p>
+                    </div>
+                </div>
+
+                <!-- İlan 3 -->
+                <div class="col-md-4">
+                    <div class="ilan">
+                        <img src="https://www.luksevi.com/resimler/b/modern-oturma-odasi-koltuk-takimi-luks-cekici-tasarimlar030552b2.jpg" alt="İlan Resmi">
+                        <h4>Beylikduzu adnan kahveci site iici daire</h4>
+                        <p>İstanbul - Beylikdüzü - Adnan Kahveci</p>
+                        <p>20.000 ₺</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- İlanları Listele Butonu -->
+            <button class="btn btn-success ilanlar-button">Tüm İlanları Gör</button>
+        </div>
+    </div>
+
+    <!-- Yeni İlanlar -->
+    <div class="custom-container">
+        <div class="yeni-ilanlar-container">
+            <h2>Yeni İlanlar</h2>
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="ilan-container" style="background-image: url('https://voyagefox.net/wp-content/uploads/2021/10/galata-tower-best-places-in-istanbul.jpg');">
+                        <h3>İstanbul</h3>
+                        <p>150.000'den fazla ilan</p>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="ilan-container" style="background-image: url('https://kolektif-bucket.ams3.digitaloceanspaces.com/komag/articles/ankara-nin-neyi-meshur-ankara-denilince-akla-gelenler-1706860901.jpg');">
+                        <h3>Ankara</h3>
+                        <p>120.000'den fazla ilan</p>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="ilan-container" style="background-image: url('https://www.novo-monde.com/app/uploads/2019/05/izmir-vue.jpg');">
+                        <h3>İzmir</h3>
+                        <p>100.000'den fazla ilan</p>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="ilan-container" style="background-image: url('https://hotelsmaxi.com/wp-content/uploads/2018/01/bursa-tarih-rehberi-gezilecek-yerler.jpg');">
+                        <h3>Bursa</h3>
+                        <p>80.000'den fazla ilan</p>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="ilan-container" style="background-image: url('https://antalya.com.tr/Uploaded/Content/ac269abe-2a5c-4f57-8ae8-c61aad846792.jpg');">
+                        <h3>Antalya</h3>
+                        <p>60.000'dan fazla ilan</p>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="ilan-container" style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQbU7GtfVb9LabfHTa8Mv1stveSWWOjXp6j8Q&s');">
+                        <h3>Eskişehir</h3>
+                        <p>40.000'dan fazla ilan</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

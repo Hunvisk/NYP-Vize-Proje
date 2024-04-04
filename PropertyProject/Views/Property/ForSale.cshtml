@@ -1,0 +1,546 @@
+﻿@{
+    ViewData["Title"] = "Satılık";
+}
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Satılık Konutlar - E-Emlakçım</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .custom-container {
+            width: 100%;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+
+        .search-form {
+            background-color: #f2f2f3;
+            padding: 20px;
+            border-radius: 5px;
+        }
+
+            .search-bar {
+                margin-bottom: 20px;
+            }
+
+            .search-button {
+                margin-left: 10px;
+                background-color: #4CAF50;
+            }
+
+            .search-form h2 {
+                margin-top: 0;
+                margin-bottom: 20px;
+            }
+
+            .search-form .row {
+                margin-bottom: 20px;
+                display: flex;
+                justify-content: space-between;
+            }
+
+                .search-form .row .col {
+                    flex: 1;
+                    margin-right: 10px;
+                }
+
+                    .search-form .row .col:last-child {
+                        margin-right: 0;
+                    }
+
+            .search-form label {
+                display: block;
+                margin-bottom: 5px;
+            }
+
+            .search-form input[type="text"],
+            .search-form select {
+                width: 100%;
+                padding: 5px;
+                border: 1px solid;
+                border-radius: 5px;
+            }
+
+            .search-form select {
+                height: 38px;
+            }
+
+            .search-form button[type="button"] {
+                background-color: #4CAF50;
+                color: white;
+                padding: 10px 20px;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+
+                .search-form button[type="button"]:hover {
+                    background-color: #45a049;
+                }
+
+        .dropdown {
+            margin-bottom: 20px;
+        }
+
+        .ilanlar-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .ilan-container {
+            position: relative;
+            width: 100%;
+            height: 200px;
+            margin-bottom: 40px; /* Boyut büyütüldü */
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+            .ilan-container:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            }
+
+        .ilan-img {
+            width: 200px;
+            float: left;
+            margin-right: 20px;
+        }
+
+        .ilan-info {
+            overflow: hidden;
+        }
+
+        .ilan-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .ilan-filters {
+            margin-bottom: 10px;
+            background-color: #f9f9f9;
+        }
+
+        .ilan-price {
+            font-size: 16px;
+            font-weight: bold;
+            color: #007bff;
+            margin-bottom: 10px;
+        }
+
+        .ilan-address {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .ilan-actions {
+            display: none;
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-radius: 0 8px 0 8px;
+            box-shadow: -3px 3px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .ilan-container:hover .ilan-actions {
+            display: block;
+            background-color: #f9f9f9;
+            box-shadow: -3px 3px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Renkler Değiştirildi */
+        .ilan-actions .ilan-action {
+            display: flex;
+            align-items: center;
+            color: #fff;
+            background-color: #007bff; /* Mavi */
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+            .ilan-actions .ilan-action:hover {
+                background-color: #28a745; /* Yeşil */
+            }
+
+            .ilan-actions .ilan-action.save {
+                background-color: #dc3545; /* Kırmızı */
+            }
+
+            .ilan-actions .ilan-action.favorite {
+                background-color: #ffc107; /* Sarı */
+            }
+
+            .ilan-actions .ilan-action.phone {
+                background-color: #17a2b8; /* Turkuaz */
+            }
+    </style>
+</head>
+<body>
+
+    <div class="custom-container">
+        <!-- Arama Çubuğu / Sırala ve Filtrele -->
+        <div class="search-bar container">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Arama yapın...">
+                <div class="input-group-append">
+                    <button class="btn btn-primary search-button" type="button">Ara</button>
+                </div>
+            </div>
+        </div>
+        <div class="search-form"> 
+            <h3>Filtrele</h3>
+            <form>
+                <div class="row">
+                    <div class="col">
+                        <label for="location">İl-İlçe - Mahalle</label>
+                        <input type="text" id="location" placeholder="Lütfen il, ilçe veya mahalle adını girin">
+                    </div>
+                    <div class="col">
+                        <label for="price">Fiyat</label>
+                        <input type="text" id="price" placeholder="Lütfen fiyat aralığını girin">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <label for="rooms">Oda Sayısı</label>
+                        <select id="rooms">
+                            <option value="">Seçiniz</option>
+                            <option value="1">1+0</option>
+                            <option value="2">2+1</option>
+                            <option value="3">3+1</option>
+                            <option value="4">4+1</option>
+                            <option value="5">5+1</option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <label for="metrekare">Metrekare</label>
+                        <input type="text" id="metrekare" placeholder="Lütfen Metrekare aralığını girin">
+                    </div>
+                </div>
+                <div class="row">
+                    <button type="button" id="filters">Filtrele</button>
+                    <br>
+                    <br>
+                </div>
+                <div class="row">
+                    <!-- Sıralama Dropdown -->
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Sırala
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="#">Popülerliğe göre sırala</a>
+                            <a class="dropdown-item" href="#">En Son Eklenenler</a>
+                            <a class="dropdown-item" href="#">Fiyata Göre Artan</a>
+                            <a class="dropdown-item" href="#">Fiyata Göre Azalan</a>
+                        </div>
+                    </div>
+                </div>
+        </form>
+    </div>
+    <br>
+    <br>
+
+        <!-- İlanlar -->
+        <h1 class="ilanlar-title">Konutlar</h1>
+
+        <!-- İlan 1 -->
+        <div class="ilan-container">
+            <img class="ilan-img" src="https://i0.shbdn.com/photos/08/33/23/x5_1155083323onf.jpg" alt="İlan Resmi">
+            <div class="ilan-info">
+                <h3 class="ilan-title">Örnek İlan Başlığı</h3>
+                <div class="ilan-filters">
+                    <span class="badge badge-primary">3+1</span>
+                    <span class="badge badge-primary">120 m²</span>
+                    <span class="badge badge-primary">Bahçeli</span>
+                </div>
+                <p class="ilan-price">250.000 TL</p>
+                <p class="ilan-address">Örnek Mahallesi, Örnek Sokak No: 123, Örnek İl</p>
+            </div>
+            <div class="ilan-actions">
+                <div class="ilan-action favorite">
+                    <i class="fas fa-heart"></i>
+                    Favorilere Ekle
+                </div>
+                <br>
+                <div class="ilan-action save">
+                    <i class="fas fa-save"></i>
+                    Kaydet
+                </div>
+                <br>
+                <div class="ilan-action phone">
+                    <i class="fas fa-phone"></i>
+                    Telefona Bak
+                </div>
+            </div>
+        </div>
+
+        <!-- İlan 2 -->
+        <div class="ilan-container">
+            <img class="ilan-img" src="https://i0.shbdn.com/photos/08/33/23/x5_1155083323onf.jpg" alt="İlan Resmi">
+            <div class="ilan-info">
+                <h3 class="ilan-title">Örnek İlan Başlığı</h3>
+                <div class="ilan-filters">
+                    <span class="badge badge-primary">3+1</span>
+                    <span class="badge badge-primary">120 m²</span>
+                    <span class="badge badge-primary">Bahçeli</span>
+                </div>
+                <p class="ilan-price">250.000 TL</p>
+                <p class="ilan-address">Örnek Mahallesi, Örnek Sokak No: 123, Örnek İl</p>
+            </div>
+            <div class="ilan-actions">
+                <div class="ilan-action favorite">
+                    <i class="fas fa-heart"></i>
+                    Favorilere Ekle
+                </div>
+                <br>
+                <div class="ilan-action save">
+                    <i class="fas fa-save"></i>
+                    Kaydet
+                </div>
+                <br>
+                <div class="ilan-action phone">
+                    <i class="fas fa-phone"></i>
+                    Telefona Bak
+                </div>
+            </div>
+        </div>
+
+        <!-- İlan 3 -->
+        <div class="ilan-container">
+            <img class="ilan-img" src="https://i0.shbdn.com/photos/08/33/23/x5_1155083323onf.jpg" alt="İlan Resmi">
+            <div class="ilan-info">
+                <h3 class="ilan-title">Örnek İlan Başlığı</h3>
+                <div class="ilan-filters">
+                    <span class="badge badge-primary">3+1</span>
+                    <span class="badge badge-primary">120 m²</span>
+                    <span class="badge badge-primary">Bahçeli</span>
+                </div>
+                <p class="ilan-price">250.000 TL</p>
+                <p class="ilan-address">Örnek Mahallesi, Örnek Sokak No: 123, Örnek İl</p>
+            </div>
+            <div class="ilan-actions">
+                <div class="ilan-action favorite">
+                    <i class="fas fa-heart"></i>
+                    Favorilere Ekle
+                </div>
+                <br>
+                <div class="ilan-action save">
+                    <i class="fas fa-save"></i>
+                    Kaydet
+                </div>
+                <br>
+                <div class="ilan-action phone">
+                    <i class="fas fa-phone"></i>
+                    Telefona Bak
+                </div>
+            </div>
+        </div>
+
+        <!-- İlan 4 -->
+        <div class="ilan-container">
+            <img class="ilan-img" src="https://i0.shbdn.com/photos/08/33/23/x5_1155083323onf.jpg" alt="İlan Resmi">
+            <div class="ilan-info">
+                <h3 class="ilan-title">Örnek İlan Başlığı</h3>
+                <div class="ilan-filters">
+                    <span class="badge badge-primary">3+1</span>
+                    <span class="badge badge-primary">120 m²</span>
+                    <span class="badge badge-primary">Bahçeli</span>
+                </div>
+                <p class="ilan-price">250.000 TL</p>
+                <p class="ilan-address">Örnek Mahallesi, Örnek Sokak No: 123, Örnek İl</p>
+            </div>
+            <div class="ilan-actions">
+                <div class="ilan-action favorite">
+                    <i class="fas fa-heart"></i>
+                    Favorilere Ekle
+                </div>
+                <br>
+                <div class="ilan-action save">
+                    <i class="fas fa-save"></i>
+                    Kaydet
+                </div>
+                <br>
+                <div class="ilan-action phone">
+                    <i class="fas fa-phone"></i>
+                    Telefona Bak
+                </div>
+            </div>
+        </div>
+
+        <!-- İlan 5 -->
+        <div class="ilan-container">
+            <img class="ilan-img" src="https://i0.shbdn.com/photos/08/33/23/x5_1155083323onf.jpg" alt="İlan Resmi">
+            <div class="ilan-info">
+                <h3 class="ilan-title">Örnek İlan Başlığı</h3>
+                <div class="ilan-filters">
+                    <span class="badge badge-primary">3+1</span>
+                    <span class="badge badge-primary">120 m²</span>
+                    <span class="badge badge-primary">Bahçeli</span>
+                </div>
+                <p class="ilan-price">250.000 TL</p>
+                <p class="ilan-address">Örnek Mahallesi, Örnek Sokak No: 123, Örnek İl</p>
+            </div>
+            <div class="ilan-actions">
+                <div class="ilan-action favorite">
+                    <i class="fas fa-heart"></i>
+                    Favorilere Ekle
+                </div>
+                <br>
+                <div class="ilan-action save">
+                    <i class="fas fa-save"></i>
+                    Kaydet
+                </div>
+                <br>
+                <div class="ilan-action phone">
+                    <i class="fas fa-phone"></i>
+                    Telefona Bak
+                </div>
+            </div>
+        </div>
+
+        <!-- İlan 6 -->
+        <div class="ilan-container">
+            <img class="ilan-img" src="https://i0.shbdn.com/photos/08/33/23/x5_1155083323onf.jpg" alt="İlan Resmi">
+            <div class="ilan-info">
+                <h3 class="ilan-title">Örnek İlan Başlığı</h3>
+                <div class="ilan-filters">
+                    <span class="badge badge-primary">3+1</span>
+                    <span class="badge badge-primary">120 m²</span>
+                    <span class="badge badge-primary">Bahçeli</span>
+                </div>
+                <p class="ilan-price">250.000 TL</p>
+                <p class="ilan-address">Örnek Mahallesi, Örnek Sokak No: 123, Örnek İl</p>
+            </div>
+            <div class="ilan-actions">
+                <div class="ilan-action favorite">
+                    <i class="fas fa-heart"></i>
+                    Favorilere Ekle
+                </div>
+                <br>
+                <div class="ilan-action save">
+                    <i class="fas fa-save"></i>
+                    Kaydet
+                </div>
+                <br>
+                <div class="ilan-action phone">
+                    <i class="fas fa-phone"></i>
+                    Telefona Bak
+                </div>
+            </div>
+        </div>
+
+        <!-- İlan 7 -->
+        <div class="ilan-container">
+            <img class="ilan-img" src="https://i0.shbdn.com/photos/08/33/23/x5_1155083323onf.jpg" alt="İlan Resmi">
+            <div class="ilan-info">
+                <h3 class="ilan-title">Örnek İlan Başlığı</h3>
+                <div class="ilan-filters">
+                    <span class="badge badge-primary">3+1</span>
+                    <span class="badge badge-primary">120 m²</span>
+                    <span class="badge badge-primary">Bahçeli</span>
+                </div>
+                <p class="ilan-price">250.000 TL</p>
+                <p class="ilan-address">Örnek Mahallesi, Örnek Sokak No: 123, Örnek İl</p>
+            </div>
+            <div class="ilan-actions">
+                <div class="ilan-action favorite">
+                    <i class="fas fa-heart"></i>
+                    Favorilere Ekle
+                </div>
+                <br>
+                <div class="ilan-action save">
+                    <i class="fas fa-save"></i>
+                    Kaydet
+                </div>
+                <br>
+                <div class="ilan-action phone">
+                    <i class="fas fa-phone"></i>
+                    Telefona Bak
+                </div>
+            </div>
+        </div>
+
+        <!-- İlan 8 -->
+        <div class="ilan-container">
+            <img class="ilan-img" src="https://i0.shbdn.com/photos/08/33/23/x5_1155083323onf.jpg" alt="İlan Resmi">
+            <div class="ilan-info">
+                <h3 class="ilan-title">Örnek İlan Başlığı</h3>
+                <div class="ilan-filters">
+                    <span class="badge badge-primary">3+1</span>
+                    <span class="badge badge-primary">120 m²</span>
+                    <span class="badge badge-primary">Bahçeli</span>
+                </div>
+                <p class="ilan-price">250.000 TL</p>
+                <p class="ilan-address">Örnek Mahallesi, Örnek Sokak No: 123, Örnek İl</p>
+            </div>
+            <div class="ilan-actions">
+                <div class="ilan-action favorite">
+                    <i class="fas fa-heart"></i>
+                    Favorilere Ekle
+                </div>
+                <br>
+                <div class="ilan-action save">
+                    <i class="fas fa-save"></i>
+                    Kaydet
+                </div>
+                <br>
+                <div class="ilan-action phone">
+                    <i class="fas fa-phone"></i>
+                    Telefona Bak
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+
+
+
+
